@@ -1,0 +1,91 @@
+<p>Inicio de Usuarios</p>
+
+<button (click)="ActivarInsercion()">Nuevo Usuario</button>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table  table-image">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Fecha Nacimiento</th>
+                        <th scope="col">Estado Civil</th>
+                        <th scope="col">Tiene Hermanos</th>
+                        <th scope="col">Opciones</th>      
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ListUsuario">
+                        <th scope="row">{{item.codigo}}</th>
+                        <td>
+                            <img 
+                                style='display:block; width:100px;height:100px;'
+                                id='base64image'
+                                src='{{item.fotO_USUARIO}}'
+                            />
+                        </td>
+                        <td>{{item.nombres}}</td>   
+                        <td>{{item.apellido}}</td>
+                        <td>{{item.fechA_NACIMIENTO}}</td>
+                        <td>{{item.estadO_CIVIL}}</td>
+                        <td>{{item.tienE_HERMANOS}}</td>
+                        <td><button (click)="ActivarActualizacion(item)">Modificar</button>
+                            <button (click)="BorrarUsuario(item.codigo)">Borrar</button>
+                        </td>
+                        
+                    </tr>       
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+  
+
+
+<div class="modal" id="Formulario" *ngIf="formDatosActivo">
+    <div class="modal-content">
+    <div class="form-group">
+        <label for="fileupload">Foto Usuario</label>
+        <input type="image" src="{{formDatos.fotO_USUARIO}}" alt="">
+        <input type="file" id="fileupload" [(ngModel)]="formDatos.fotO_USUARIO" (change)="handleUpload($event)" />
+    </div>
+    <div class="form-group">
+        <label for="nombres">Nombres</label>
+        <input type="text" id="nombres" name="input" [(ngModel)]="formDatos.nombres"  required />
+    </div>
+    <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" id="apellidos" name="input" [(ngModel)]="formDatos.apellido"  required />
+    </div>
+    <div class="form-group">
+        <label for="fechanaciemiento">Fecha Naciemiento</label>
+        <input type="date" id="fechanaciemiento" name="input" [(ngModel)]="formDatos.fechA_NACIMIENTO"  placeholder="yyyy-MM-dd" min="1900-01-01" max="2021-12-31" required />
+    </div>
+    <div class="form-group">
+        <label for="estadocivil">Estado Civil</label>
+        <select name="estadocivil" id="estadocivil" [(ngModel)]="formDatos.estadO_CIVIL" required>
+            <option value="1">SOLTERO(A)</option>
+            <option value="2">CASADO(A)</option>
+            <option value="3">UNION LIBRE(A)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="TieneHermanos">Tiene Hermanos</label>
+    <select name="TieneHermanos" id="TieneHermanos" [(ngModel)]="formDatos.tienE_HERMANOS" required>
+        <option value="true">SI</option>
+        <option value="false">No</option>
+    </select>
+    </div>
+    <button class="btn btn-primary" (click)="InsertarDatos()" *ngIf="!optinsert">Guardar Datos</button>
+    <button class="btn btn-primary" (click)="ActualizarUsuario()" *ngIf="optinsert">Actualizar Datos</button>
+</div>
+</div>
+
+
+
+
+
